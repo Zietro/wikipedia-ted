@@ -107,7 +107,7 @@ python main.py "Lebanon" "Switzerland"
 | `--format infobox` | Output patched tree as Wikipedia wikitext | —       |
 | `--overwrite`      | Re-scrape even if XML files already exist | `False` |
 
-To collect infoboxes for all 193 UN member states at once:
+To collect infoboxes for all 195 UN member states at once:
 
 ```python
 from src.collector import collect_all
