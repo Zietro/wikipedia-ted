@@ -1,8 +1,6 @@
 from __future__ import annotations
 from typing import List, Optional
 
-# Stable path segment for content nodes (sibling index under parent). Same field in two
-# countries shares the same path; the value lives in node.label, not in the path.
 CONTENT_SLOT_PREFIX = "__content__"
 
 
@@ -10,6 +8,7 @@ class TreeNode:
     def __init__(self, label: str, is_content: bool = False) -> None:
         self.label: str = label
         self.is_content: bool = is_content
+        self.non_comparable: bool = False
         self.children: List[TreeNode] = []
         self.parent: Optional[TreeNode] = None
         self.postorder_index: Optional[int] = None
@@ -80,14 +79,14 @@ class TreeUtils:
     def is_content_slot_segment(segment: str) -> bool:
         if not segment.startswith(CONTENT_SLOT_PREFIX):
             return False
-        rest = segment[len(CONTENT_SLOT_PREFIX) :]
+        rest = segment[len(CONTENT_SLOT_PREFIX):]
         return rest.isdigit()
 
     @staticmethod
     def parse_content_slot_index(segment: str) -> Optional[int]:
         if not TreeUtils.is_content_slot_segment(segment):
             return None
-        return int(segment[len(CONTENT_SLOT_PREFIX) :])
+        return int(segment[len(CONTENT_SLOT_PREFIX):])
 
     @staticmethod
     def get_path(node: TreeNode) -> List[str]:
@@ -133,6 +132,7 @@ class TreeUtils:
     def pretty_print(root: TreeNode, indent: int = 0) -> None:
         prefix = "  " * indent
         tag = "[content]" if root.is_content else "[structural]"
-        print(f"{prefix}{tag} {root.label}")
+        nc = " [non-comparable]" if root.non_comparable else ""
+        print(f"{prefix}{tag}{nc} {root.label}")
         for child in root.children:
             TreeUtils.pretty_print(child, indent + 1)

@@ -341,18 +341,12 @@ with tab2:
             for op in meaningful_renames:
                 kind = "content" if op.is_content else "structural"
                 ed = op.string_edit_distance
-                ed_html = (
-                    f' <span style="color:#666; font-size:11px;">Levenshtein: {ed}</span>'
-                    if ed is not None
-                    else ""
-                )
                 st.markdown(
                     f'<div style="font-family:monospace; font-size:13px; margin:4px 0;">'
                     f'<span style="background:#fff3cd; padding:2px 6px; border-radius:4px;">{op.node_label}</span>'
                     f' → '
                     f'<span style="background:#d4edda; padding:2px 6px; border-radius:4px;">{op.target_label}</span>'
                     f' <span style="color:#aaa; font-size:11px;">({kind})</span>'
-                    f'{ed_html}'
                     f'</div>',
                     unsafe_allow_html=True,
                 )

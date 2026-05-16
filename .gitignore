@@ -19,3 +19,8 @@ data/infoboxes/
 # IDE
 .vscode/
 .idea/
+
+verify_step4.py
+verify_step5.py
+verify_step6.py
+verify_step7_8.py

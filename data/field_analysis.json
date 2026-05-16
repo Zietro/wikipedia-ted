@@ -1,0 +1,1807 @@
+{
+  "sample_size": 49,
+  "failed": [
+    "Netherlands"
+  ],
+  "alias_groups": {},
+  "fields": [
+    {
+      "field": "conventional_long_name",
+      "count": 49,
+      "frequency_pct": 100.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: Lebanese Republic",
+        "Syria: Syrian Arab Republic",
+        "Jordan: Hashemite Kingdom of Jordan",
+        "Egypt: Arab Republic of Egypt",
+        "Saudi Arabia: Kingdom of Saudi Arabia"
+      ]
+    },
+    {
+      "field": "common_name",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: Lebanon",
+        "Syria: Syria",
+        "Jordan: Jordan",
+        "Egypt: Egypt",
+        "Saudi Arabia: Saudi Arabia"
+      ]
+    },
+    {
+      "field": "capital",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: Beirut",
+        "Syria: Damascus",
+        "Jordan: Amman",
+        "Egypt: Cairo",
+        "Saudi Arabia: Riyadh"
+      ]
+    },
+    {
+      "field": "government_type",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: Unitary parliamentary republic under confessionalism",
+        "Syria: Unitary presidential republic under a provisional government",
+        "Jordan: Unitary parliamentary semi-constitutional monarchy",
+        "Egypt: Unitary semi-presidential republic under an authoritarian government",
+        "Saudi Arabia: Unitary Islamic absolute monarchy"
+      ]
+    },
+    {
+      "field": "leader_title1",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: President",
+        "Syria: President",
+        "Jordan: King",
+        "Egypt: President",
+        "Saudi Arabia: King"
+      ]
+    },
+    {
+      "field": "gdp_ppp_year",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: 2022",
+        "Syria: 2021",
+        "Jordan: 2023",
+        "Egypt: 2026",
+        "Saudi Arabia: 2026"
+      ]
+    },
+    {
+      "field": "gdp_ppp_per_capita",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: $11,793",
+        "Syria: $3,300",
+        "Jordan: $12,809",
+        "Egypt: $23,321",
+        "Saudi Arabia: $78,815"
+      ]
+    },
+    {
+      "field": "gdp_nominal_year",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: 2022",
+        "Syria: 2022",
+        "Jordan: 2023",
+        "Egypt: 2026",
+        "Saudi Arabia: 2026"
+      ]
+    },
+    {
+      "field": "gdp_nominal_per_capita",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: $3,283",
+        "Syria: $800",
+        "Jordan: $4,850",
+        "Egypt: $3,904",
+        "Saudi Arabia: $37,811"
+      ]
+    },
+    {
+      "field": "gini",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: 31.8",
+        "Syria: 26.6",
+        "Jordan: 35.4",
+        "Egypt: 28.5",
+        "Saudi Arabia: 45.9"
+      ]
+    },
+    {
+      "field": "gini_year",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: 2011",
+        "Syria: 2022",
+        "Jordan: 2011",
+        "Egypt: 2021",
+        "Saudi Arabia: 2013"
+      ]
+    },
+    {
+      "field": "hdi_year",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: 2023",
+        "Syria: 2023",
+        "Jordan: 2023",
+        "Egypt: 2023",
+        "Saudi Arabia: 2023"
+      ]
+    },
+    {
+      "field": "hdi_change",
+      "count": 48,
+      "frequency_pct": 98.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: increase",
+        "Syria: decrease",
+        "Jordan: increase",
+        "Egypt: increase",
+        "Saudi Arabia: increase"
+      ]
+    },
+    {
+      "field": "area_rank",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: 161st",
+        "Syria: 87th",
+        "Jordan: 110th",
+        "Egypt: 29th",
+        "Saudi Arabia: 12th"
+      ]
+    },
+    {
+      "field": "gdp_ppp_rank",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: 108th",
+        "Jordan: 91st",
+        "Egypt: 18th",
+        "Saudi Arabia: 17th",
+        "Turkey: 11th"
+      ]
+    },
+    {
+      "field": "gdp_ppp_per_capita_rank",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: 114th",
+        "Jordan: 112th",
+        "Egypt: 87th",
+        "Saudi Arabia: 19th",
+        "Turkey: 51st"
+      ]
+    },
+    {
+      "field": "gdp_nominal_rank",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: 103rd",
+        "Jordan: 93rd",
+        "Egypt: 41st",
+        "Saudi Arabia: 19th",
+        "Turkey: 16th"
+      ]
+    },
+    {
+      "field": "gdp_nominal_per_capita_rank",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: 133rd",
+        "Jordan: 114th",
+        "Egypt: 135th",
+        "Saudi Arabia: 37th",
+        "Turkey: 63rd"
+      ]
+    },
+    {
+      "field": "hdi",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: 0.752",
+        "Jordan: 0.754",
+        "Egypt: 0.754",
+        "Saudi Arabia: 0.900",
+        "Turkey: 0.853"
+      ]
+    },
+    {
+      "field": "hdi_rank",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: 102nd",
+        "Syria: 162nd",
+        "Jordan: 100th",
+        "Egypt: 100th",
+        "Saudi Arabia: 37th"
+      ]
+    },
+    {
+      "field": "currency",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: Lebanese pound",
+        "Syria: Syrian pound",
+        "Jordan: Jordanian dinar",
+        "Egypt: Egyptian pound (LE/E£/£E)",
+        "Saudi Arabia: Saudi riyal (SR)"
+      ]
+    },
+    {
+      "field": "utc_offset",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: +2",
+        "Syria: +03:00",
+        "Jordan: +03:00",
+        "Egypt: +2",
+        "Saudi Arabia: +3"
+      ]
+    },
+    {
+      "field": "calling_code",
+      "count": 47,
+      "frequency_pct": 95.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: +961",
+        "Syria: +963",
+        "Jordan: +962",
+        "Egypt: +20",
+        "Saudi Arabia: +966"
+      ]
+    },
+    {
+      "field": "leader_name2",
+      "count": 46,
+      "frequency_pct": 93.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: Nawaf Salam",
+        "Jordan: Jafar Hassan",
+        "Egypt: Mostafa Madbouly",
+        "Saudi Arabia: Mohammed bin Salman",
+        "Turkey: Cevdet Yılmaz"
+      ]
+    },
+    {
+      "field": "area_km2",
+      "count": 46,
+      "frequency_pct": 93.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: 10452",
+        "Syria: 185180",
+        "Jordan: 89342",
+        "Egypt: 1,010,408",
+        "Saudi Arabia: 2,149,690"
+      ]
+    },
+    {
+      "field": "currency_code",
+      "count": 46,
+      "frequency_pct": 93.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: LBP",
+        "Syria: SYP/LS",
+        "Jordan: JOD",
+        "Egypt: EGP",
+        "Saudi Arabia: SAR"
+      ]
+    },
+    {
+      "field": "percent_water",
+      "count": 45,
+      "frequency_pct": 91.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: 1.8",
+        "Syria: 1.1",
+        "Jordan: 0.6",
+        "Egypt: 0.632",
+        "Saudi Arabia: 0.7"
+      ]
+    },
+    {
+      "field": "gdp_ppp",
+      "count": 45,
+      "frequency_pct": 91.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: $78.233 billion",
+        "Jordan: $132.092 billion",
+        "Egypt: $2.567 trillion",
+        "Saudi Arabia: $2.895 trillion",
+        "Turkey: $4.025 trillion"
+      ]
+    },
+    {
+      "field": "gdp_nominal",
+      "count": 45,
+      "frequency_pct": 91.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: $21.780 billion",
+        "Jordan: $50.022 billion",
+        "Egypt: $429.645 billion",
+        "Saudi Arabia: $1.389 trillion",
+        "Turkey: $1.640 trillion"
+      ]
+    },
+    {
+      "field": "gini_change",
+      "count": 45,
+      "frequency_pct": 91.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: decrease",
+        "Syria: decrease",
+        "Egypt: decrease",
+        "Saudi Arabia: steady",
+        "Turkey: decrease"
+      ]
+    },
+    {
+      "field": "population_density_rank",
+      "count": 45,
+      "frequency_pct": 91.8,
+      "noise": false,
+      "samples": [
+        "Syria: 70th",
+        "Jordan: 70th",
+        "Egypt: 103rd",
+        "Saudi Arabia: 218th",
+        "Turkey: 83rd"
+      ]
+    },
+    {
+      "field": "largest_city",
+      "count": 44,
+      "frequency_pct": 89.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: Beirut",
+        "Syria: capital",
+        "Jordan: capital",
+        "Egypt: capital",
+        "Saudi Arabia: Riyadh"
+      ]
+    },
+    {
+      "field": "population_estimate_rank",
+      "count": 44,
+      "frequency_pct": 89.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: 117th",
+        "Syria: 56th",
+        "Jordan: 84th",
+        "Egypt: 15th",
+        "Turkey: 18th"
+      ]
+    },
+    {
+      "field": "leader_title2",
+      "count": 43,
+      "frequency_pct": 87.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: Prime Minister",
+        "Jordan: Prime Minister",
+        "Egypt: Prime Minister",
+        "Saudi Arabia: Crown Prince and Prime Minister",
+        "Turkey: Vice President"
+      ]
+    },
+    {
+      "field": "legislature",
+      "count": 43,
+      "frequency_pct": 87.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: Parliament",
+        "Syria: People's Assembly",
+        "Jordan: Parliament",
+        "Egypt: Parliament",
+        "Saudi Arabia: Consultative Assembly"
+      ]
+    },
+    {
+      "field": "established_event1",
+      "count": 43,
+      "frequency_pct": 87.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: Emirate of Mount Lebanon",
+        "Syria: Arab Kingdom of Syria",
+        "Jordan: Emirate",
+        "Egypt: Unification of Upper and Lower Egypt",
+        "Saudi Arabia: Emirate of Diriyah"
+      ]
+    },
+    {
+      "field": "established_date2",
+      "count": 43,
+      "frequency_pct": 87.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: 1 December 1843",
+        "Syria: 1 December 1924",
+        "Jordan: 25 May 1946",
+        "Egypt: 973",
+        "Saudi Arabia: 1824"
+      ]
+    },
+    {
+      "field": "sovereignty_type",
+      "count": 43,
+      "frequency_pct": 87.8,
+      "noise": false,
+      "samples": [
+        "Jordan: Independence",
+        "Egypt: History",
+        "Saudi Arabia: Establishment",
+        "Turkey: Establishment",
+        "Iran: Formation"
+      ]
+    },
+    {
+      "field": "leader_name1",
+      "count": 42,
+      "frequency_pct": 85.7,
+      "noise": false,
+      "samples": [
+        "Lebanon: Joseph Aoun",
+        "Syria: Ahmed al-Sharaa",
+        "Jordan: Abdullah II",
+        "Egypt: Abdel Fattah el-Sisi",
+        "Saudi Arabia: Salman"
+      ]
+    },
+    {
+      "field": "established_event2",
+      "count": 42,
+      "frequency_pct": 85.7,
+      "noise": false,
+      "samples": [
+        "Lebanon: Double Qaim-Maqamate of Mount Lebanon",
+        "Syria: State of Syria under French mandate",
+        "Jordan: Independence",
+        "Egypt: Fatimid Caliphate",
+        "Saudi Arabia: Emirate of Nejd"
+      ]
+    },
+    {
+      "field": "time_zone",
+      "count": 42,
+      "frequency_pct": 85.7,
+      "noise": false,
+      "samples": [
+        "Lebanon: EET",
+        "Syria: AST",
+        "Jordan: AST",
+        "Egypt: EET",
+        "Saudi Arabia: SAST"
+      ]
+    },
+    {
+      "field": "established_date1",
+      "count": 40,
+      "frequency_pct": 81.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: 1516",
+        "Syria: 8 March 1920",
+        "Jordan: 11 April 1921",
+        "Egypt: 3150 BC",
+        "Saudi Arabia: 22 February 1727"
+      ]
+    },
+    {
+      "field": "established_event3",
+      "count": 40,
+      "frequency_pct": 81.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: Mount Lebanon Mutasarrifate",
+        "Syria: First Syrian Republic",
+        "Jordan: Current constitution",
+        "Egypt: Ayyubid dynasty inaugurated",
+        "Saudi Arabia: Emirate of Riyadh"
+      ]
+    },
+    {
+      "field": "population_estimate_year",
+      "count": 40,
+      "frequency_pct": 81.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: 2024",
+        "Syria: 2025",
+        "Jordan: 2023",
+        "Egypt: July 2025",
+        "Turkey: December 2025"
+      ]
+    },
+    {
+      "field": "established_date3",
+      "count": 39,
+      "frequency_pct": 79.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: 9 June 1861",
+        "Syria: 14 May 1930",
+        "Jordan: 11 January 1952",
+        "Egypt: 1171",
+        "Saudi Arabia: 13 January 1902"
+      ]
+    },
+    {
+      "field": "area_sq_mi",
+      "count": 39,
+      "frequency_pct": 79.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: 4036",
+        "Syria: 71479",
+        "Egypt: 387,048",
+        "Saudi Arabia: 830,000",
+        "Turkey: 302535"
+      ]
+    },
+    {
+      "field": "drives_on",
+      "count": 39,
+      "frequency_pct": 79.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: Right",
+        "Syria: right",
+        "Jordan: right",
+        "Egypt: right",
+        "Saudi Arabia: Right"
+      ]
+    },
+    {
+      "field": "population_estimate",
+      "count": 38,
+      "frequency_pct": 77.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: 5,364,482",
+        "Syria: 26,019,711",
+        "Jordan: 11,484,805",
+        "Egypt: 107,868,296",
+        "Turkey: 86,092,168"
+      ]
+    },
+    {
+      "field": "population_density_km2",
+      "count": 38,
+      "frequency_pct": 77.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: 513",
+        "Syria: 118.3",
+        "Jordan: 114",
+        "Egypt: 106.8",
+        "Saudi Arabia: 15"
+      ]
+    },
+    {
+      "field": "religion_year",
+      "count": 38,
+      "frequency_pct": 77.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: 2024",
+        "Syria: 2020",
+        "Iran: 2026",
+        "Iraq: 2020",
+        "France: 2021"
+      ]
+    },
+    {
+      "field": "established_date4",
+      "count": 35,
+      "frequency_pct": 71.4,
+      "noise": false,
+      "samples": [
+        "Lebanon: 1 September 1920",
+        "Egypt: 1261",
+        "Saudi Arabia: 15 January 1913",
+        "Turkey: 1 November 1922",
+        "Iran: 224 AD"
+      ]
+    },
+    {
+      "field": "cctld",
+      "count": 34,
+      "frequency_pct": 69.4,
+      "noise": false,
+      "samples": [
+        "Syria: .syسوريا.",
+        "Jordan: .jo",
+        "Turkey: .tr",
+        "France: .fr",
+        "Germany: .de"
+      ]
+    },
+    {
+      "field": "languages_type",
+      "count": 33,
+      "frequency_pct": 67.3,
+      "noise": false,
+      "samples": [
+        "Lebanon: Local vernacular",
+        "Syria: Spoken languages",
+        "Egypt: National language",
+        "Turkey: Spoken languages",
+        "France: Official language"
+      ]
+    },
+    {
+      "field": "demonym",
+      "count": 33,
+      "frequency_pct": 67.3,
+      "noise": false,
+      "samples": [
+        "Lebanon: Lebanese",
+        "Syria: Syrian",
+        "Jordan: Jordanian",
+        "Egypt: Egyptian",
+        "Iran: Iranian"
+      ]
+    },
+    {
+      "field": "established_event4",
+      "count": 33,
+      "frequency_pct": 67.3,
+      "noise": false,
+      "samples": [
+        "Lebanon: Greater Lebanon",
+        "Egypt: Mamluk Egypt",
+        "Saudi Arabia: Emirate of Nejd and Hasa",
+        "Turkey: Sultanate abolished",
+        "Iran: Sasanian Empire"
+      ]
+    },
+    {
+      "field": "population_density_sq_mi",
+      "count": 33,
+      "frequency_pct": 67.3,
+      "noise": false,
+      "samples": [
+        "Lebanon: 1,329",
+        "Syria: 306.5",
+        "Jordan: 295",
+        "Egypt: 276.6",
+        "Saudi Arabia: 38.8"
+      ]
+    },
+    {
+      "field": "population_census_year",
+      "count": 32,
+      "frequency_pct": 65.3,
+      "noise": false,
+      "samples": [
+        "Jordan: 2015",
+        "Egypt: 2017",
+        "Saudi Arabia: 2024",
+        "Iraq: 2024",
+        "Germany: 2022"
+      ]
+    },
+    {
+      "field": "upper_house",
+      "count": 31,
+      "frequency_pct": 63.3,
+      "noise": false,
+      "samples": [
+        "Jordan: Senate",
+        "Egypt: Senate",
+        "Iraq: Federation Council",
+        "France: Senate",
+        "United Kingdom: House of Lords"
+      ]
+    },
+    {
+      "field": "population_census",
+      "count": 30,
+      "frequency_pct": 61.2,
+      "noise": false,
+      "samples": [
+        "Jordan: 9,531,712",
+        "Egypt: 94,798,827",
+        "Saudi Arabia: 33,702,731",
+        "Iraq: 46,118,793",
+        "Germany: 82,719,540"
+      ]
+    },
+    {
+      "field": "lower_house",
+      "count": 29,
+      "frequency_pct": 59.2,
+      "noise": false,
+      "samples": [
+        "Egypt: House of Representatives",
+        "Iraq: Council of Representatives",
+        "France: National Assembly",
+        "United Kingdom: House of Commons",
+        "Italy: Chamber of Deputies"
+      ]
+    },
+    {
+      "field": "languages",
+      "count": 28,
+      "frequency_pct": 57.1,
+      "noise": false,
+      "samples": [
+        "Lebanon: Lebanese Arabic",
+        "Egypt: Egyptian Arabic",
+        "France: French",
+        "United Kingdom: English",
+        "Italy: See main article"
+      ]
+    },
+    {
+      "field": "leader_title3",
+      "count": 28,
+      "frequency_pct": 57.1,
+      "noise": false,
+      "samples": [
+        "Lebanon: Speaker of the Parliament",
+        "Turkey: Speaker",
+        "Iran: First Vice President",
+        "Iraq: Speaker",
+        "France: President of the Senate"
+      ]
+    },
+    {
+      "field": "leader_name3",
+      "count": 27,
+      "frequency_pct": 55.1,
+      "noise": false,
+      "samples": [
+        "Lebanon: Nabih Berri",
+        "Turkey: Numan Kurtulmuş",
+        "Iran: Mohammad Reza Aref",
+        "Iraq: Haibat al-Halbousi",
+        "France: Gérard Larcher"
+      ]
+    },
+    {
+      "field": "ethnic_groups_year",
+      "count": 27,
+      "frequency_pct": 55.1,
+      "noise": false,
+      "samples": [
+        "Lebanon: 2021",
+        "Syria: 2021",
+        "Turkey: 2016",
+        "Iran: 2025",
+        "Iraq: 1987"
+      ]
+    },
+    {
+      "field": "established_date5",
+      "count": 25,
+      "frequency_pct": 51.0,
+      "noise": false,
+      "samples": [
+        "Lebanon: 23 May 1926",
+        "Syria: 17 April 1946",
+        "Egypt: 9 July 1805",
+        "Saudi Arabia: 29 November 1921",
+        "Turkey: 24 July 1923"
+      ]
+    },
+    {
+      "field": "date_format",
+      "count": 23,
+      "frequency_pct": 46.9,
+      "noise": false,
+      "samples": [
+        "Syria: dd-mm-yyyy",
+        "United Kingdom: // (AD)",
+        "Spain: DD/MM/YYYY",
+        "Switzerland: dd.mm.yyyy (AD)",
+        "Poland: dd.mm.yyyy (CE)"
+      ]
+    },
+    {
+      "field": "official_languages",
+      "count": 22,
+      "frequency_pct": 44.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: Arabic",
+        "Syria: Arabic",
+        "Jordan: Arabic",
+        "Egypt: Arabic",
+        "Saudi Arabia: Arabic"
+      ]
+    },
+    {
+      "field": "established_event5",
+      "count": 22,
+      "frequency_pct": 44.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: Constitution",
+        "Syria: End of the French mandate",
+        "Egypt: Alawiyya dynasty inaugurated",
+        "Saudi Arabia: Sultanate of Nejd",
+        "Iran: Iranian Intermezzo"
+      ]
+    },
+    {
+      "field": "established_date6",
+      "count": 22,
+      "frequency_pct": 44.9,
+      "noise": false,
+      "samples": [
+        "Lebanon: 22 November 1943",
+        "Syria: –",
+        "Egypt: 28 February 1922",
+        "Saudi Arabia: 8 January 1926",
+        "Turkey: 29 October 1923"
+      ]
+    },
+    {
+      "field": "utc_offset_dst",
+      "count": 20,
+      "frequency_pct": 40.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: +3",
+        "Egypt: +3",
+        "France: +2",
+        "Germany: +2",
+        "United Kingdom: +1"
+      ]
+    },
+    {
+      "field": "leader_title4",
+      "count": 20,
+      "frequency_pct": 40.8,
+      "noise": false,
+      "samples": [
+        "Turkey: Chief Justice",
+        "Iran: Speaker of the Assembly",
+        "France: President of the National Assembly",
+        "Italy: President of the Chamber of Deputies",
+        "Spain: President of the Senate"
+      ]
+    },
+    {
+      "field": "established_event6",
+      "count": 19,
+      "frequency_pct": 38.8,
+      "noise": false,
+      "samples": [
+        "Lebanon: Independence declared",
+        "Syria: Part of the United Arab Republic",
+        "Egypt: Declaration of Independence",
+        "Saudi Arabia: Kingdom of Hejaz and Nejd",
+        "Iran: Safavid Iran"
+      ]
+    },
+    {
+      "field": "map_width",
+      "count": 19,
+      "frequency_pct": 38.8,
+      "noise": false,
+      "samples": [
+        "Turkey: 250px",
+        "Iran: 250px",
+        "Iraq: 250px",
+        "Germany: 250px",
+        "Spain: 250px"
+      ]
+    },
+    {
+      "field": "languages2_type",
+      "count": 18,
+      "frequency_pct": 36.7,
+      "noise": false,
+      "samples": [
+        "Lebanon: Recognised minority language",
+        "Iran: Special status",
+        "United Kingdom: Regional and minority languages",
+        "Austria: Official regional languages",
+        "Mexico: Co-official languages"
+      ]
+    },
+    {
+      "field": "national_motto",
+      "count": 18,
+      "frequency_pct": 36.7,
+      "noise": false,
+      "samples": [
+        "Jordan: \"God, Country, King\"",
+        "Saudi Arabia: (Shahada)\"There is no god but God; Muhammad is the messenger of God\"",
+        "France: \"\"",
+        "Spain: (Latin)(English: 'Further Beyond')",
+        "Switzerland: (unofficial)\"\""
+      ]
+    },
+    {
+      "field": "sovereignty_note",
+      "count": 18,
+      "frequency_pct": 36.7,
+      "noise": false,
+      "samples": [
+        "Jordan: from the United Kingdom",
+        "Belgium: from the Netherlands",
+        "United States: from Great Britain",
+        "Canada: from the United Kingdom",
+        "Mexico: from Spain"
+      ]
+    },
+    {
+      "field": "leader_name4",
+      "count": 18,
+      "frequency_pct": 36.7,
+      "noise": false,
+      "samples": [
+        "Turkey: Kadir Özkaya",
+        "Iran: Mohammad Bagher Ghalibaf",
+        "France: Yaël Braun-Pivet",
+        "Italy: Lorenzo Fontana",
+        "Spain: Pedro Rollán"
+      ]
+    },
+    {
+      "field": "time_zone_dst",
+      "count": 17,
+      "frequency_pct": 34.7,
+      "noise": false,
+      "samples": [
+        "Lebanon: EEST",
+        "Egypt: EEST",
+        "France: CEST",
+        "Germany: CEST",
+        "United Kingdom: BST"
+      ]
+    },
+    {
+      "field": "name",
+      "count": 14,
+      "frequency_pct": 28.6,
+      "noise": false,
+      "samples": [
+        "Lebanon: Lebanon",
+        "Syria: Syria",
+        "Jordan: Jordan",
+        "Egypt: Egypt",
+        "Saudi Arabia: Saudi Arabia"
+      ]
+    },
+    {
+      "field": "established_event7",
+      "count": 13,
+      "frequency_pct": 26.5,
+      "noise": false,
+      "samples": [
+        "Lebanon: French mandate ended",
+        "Syria: Ba'athist Syria",
+        "Egypt: Revolution Day",
+        "Saudi Arabia: Unification and Proclamation of the Kingdom of Saudi Arabia",
+        "Turkey: Current constitution"
+      ]
+    },
+    {
+      "field": "established_date7",
+      "count": 13,
+      "frequency_pct": 26.5,
+      "noise": false,
+      "samples": [
+        "Lebanon: 24 October 1945",
+        "Syria: –",
+        "Egypt: 23 July 1952",
+        "Saudi Arabia: 23 September 1932",
+        "Turkey: 9 November 1982"
+      ]
+    },
+    {
+      "field": "population_census_rank",
+      "count": 13,
+      "frequency_pct": 26.5,
+      "noise": false,
+      "samples": [
+        "Saudi Arabia: 42nd",
+        "Iraq: 34th",
+        "Germany: 19th",
+        "Poland: 38th",
+        "United States: 3rd"
+      ]
+    },
+    {
+      "field": "languages2",
+      "count": 11,
+      "frequency_pct": 22.4,
+      "noise": false,
+      "samples": [
+        "Lebanon: French",
+        "France: See languages of France",
+        "Mexico: 68 Indigenous languages",
+        "Brazil: See regional official languages",
+        "Indonesia: Latin (predominantly)"
+      ]
+    },
+    {
+      "field": "ethnic_groups",
+      "count": 11,
+      "frequency_pct": 22.4,
+      "noise": false,
+      "samples": [
+        "Syria: 80–90% Arabs9–10% Kurds1–10% others",
+        "Poland: 98.8% Polish 96.3% only Polish 2.6% Polish and others 1.1% only non-Polish",
+        "Belgium: 86.1% Belgians 64% Belgian background 22.1% foreign background 13.8% other",
+        "Mexico: See below",
+        "Brazil: 45.3% Pardo 43.5% White 10.2% Black 0.6% Indigenous 0.4% East Asian"
+      ]
+    },
+    {
+      "field": "religion",
+      "count": 11,
+      "frequency_pct": 22.4,
+      "noise": false,
+      "samples": [
+        "Syria: 94.17% Islam 79.19% Sunni 14.1% Shia 10–13% Alawites 3.84% Christianity 1.99% ot",
+        "Jordan: 1% others",
+        "Egypt: See Religion in Egypt",
+        "Saudi Arabia: Sunni Islam (official)",
+        "Iran: 99.4% Islam 90–95% Shia (official) 5–10% Sunni 0.6% other (incl. Christians, Zor"
+      ]
+    },
+    {
+      "field": "established_event8",
+      "count": 10,
+      "frequency_pct": 20.4,
+      "noise": false,
+      "samples": [
+        "Lebanon: Withdrawal of French forces",
+        "Syria: Current provisional government established",
+        "Egypt: Republic declared",
+        "Saudi Arabia: Current constitution",
+        "Iran: Zand Iran"
+      ]
+    },
+    {
+      "field": "leader_name5",
+      "count": 10,
+      "frequency_pct": 20.4,
+      "noise": false,
+      "samples": [
+        "Iran: Gholam-Hossein Mohseni-Eje'i",
+        "Brazil: Edson Fachin",
+        "Argentina: Horacio Rosatti",
+        "China: Han Zheng",
+        "South Korea: Kim Sanghwan"
+      ]
+    },
+    {
+      "field": "established_date8",
+      "count": 9,
+      "frequency_pct": 18.4,
+      "noise": false,
+      "samples": [
+        "Lebanon: 17 April 1946",
+        "Egypt: 18 June 1953",
+        "Saudi Arabia: 31 January 1992",
+        "Iran: 1751",
+        "Portugal: 5 October 1910"
+      ]
+    },
+    {
+      "field": "established_date9",
+      "count": 9,
+      "frequency_pct": 18.4,
+      "noise": false,
+      "samples": [
+        "Lebanon: 24 May 2000",
+        "Egypt: 18 January 2014",
+        "Iran: 20 March 1794",
+        "Portugal: 25 April 1974",
+        "Austria: 13 March 1938"
+      ]
+    },
+    {
+      "field": "leader_title5",
+      "count": 9,
+      "frequency_pct": 18.4,
+      "noise": false,
+      "samples": [
+        "Iran: Chief Justice",
+        "Argentina: President of Supreme Court",
+        "China: Vice President",
+        "South Korea: President of the Constitutional Court",
+        "Indonesia: Chief Justice of the Constitutional Court"
+      ]
+    },
+    {
+      "field": "established_date10",
+      "count": 8,
+      "frequency_pct": 16.3,
+      "noise": false,
+      "samples": [
+        "Lebanon: 30 April 2005",
+        "Iran: 12 December 1905",
+        "Portugal: 25 April 1976",
+        "Austria: 27 April 1945",
+        "Russia: 12 December 1993"
+      ]
+    },
+    {
+      "field": "iso3166code",
+      "count": 8,
+      "frequency_pct": 16.3,
+      "noise": false,
+      "samples": [
+        "Syria: SY",
+        "Switzerland: CH",
+        "United States: US",
+        "Chile: CL",
+        "India: IN"
+      ]
+    },
+    {
+      "field": "other_symbol_type",
+      "count": 7,
+      "frequency_pct": 14.3,
+      "noise": false,
+      "samples": [
+        "United Kingdom: Coat of arms:",
+        "Brazil: National Seal",
+        "India: National song:",
+        "South Korea: National Seal:",
+        "Indonesia: National ideology and philosophy:"
+      ]
+    },
+    {
+      "field": "established_event9",
+      "count": 6,
+      "frequency_pct": 12.2,
+      "noise": false,
+      "samples": [
+        "Lebanon: Israeli troops withdrawn",
+        "Egypt: Current constitution",
+        "Iran: Qajar Iran",
+        "Portugal: Democratization",
+        "Austria: Anschluss"
+      ]
+    },
+    {
+      "field": "established_event10",
+      "count": 6,
+      "frequency_pct": 12.2,
+      "noise": false,
+      "samples": [
+        "Lebanon: Syrian troops withdrawn",
+        "Iran: Constitutional Revolution",
+        "Portugal: Current constitution",
+        "Austria: Second Republic",
+        "Russia: Current constitution"
+      ]
+    },
+    {
+      "field": "area_label",
+      "count": 6,
+      "frequency_pct": 12.2,
+      "noise": false,
+      "samples": [
+        "Lebanon: Total",
+        "United Kingdom: Total",
+        "United States: Total area",
+        "Canada: Total area",
+        "Brazil: Total"
+      ]
+    },
+    {
+      "field": "area_label2",
+      "count": 6,
+      "frequency_pct": 12.2,
+      "noise": false,
+      "samples": [
+        "France: Metropolitan France (DGCL)",
+        "United Kingdom: Land",
+        "United States: Land area",
+        "Canada: Total land area",
+        "Indonesia: Water (%)"
+      ]
+    },
+    {
+      "field": "other_symbol",
+      "count": 6,
+      "frequency_pct": 12.2,
+      "noise": false,
+      "samples": [
+        "United Kingdom: 250pxUsed in relation to Scotland (right) and elsewhere (left)",
+        "Argentina: 100px|link=Sol de Mayo",
+        "India: \"I Bow to Thee, Mother\" File:Vande Mataram on Mohan Veena.ogg",
+        "South Korea: 85px",
+        "Indonesia: (Sanskrit)\"The Five Principles\""
+      ]
+    },
+    {
+      "field": "englishmotto",
+      "count": 6,
+      "frequency_pct": 12.2,
+      "noise": false,
+      "samples": [
+        "Switzerland: \"One for all, all for one\"",
+        "Belgium: ()",
+        "Colombia: \"Freedom and Order\"",
+        "India: \"Truth Alone Triumphs\"",
+        "Tanzania: \"Freedom and Unity\""
+      ]
+    },
+    {
+      "field": "admin_center",
+      "count": 5,
+      "frequency_pct": 10.2,
+      "noise": false,
+      "samples": [
+        "Switzerland: Bern",
+        "China: Chongqing",
+        "India: Mumbai",
+        "Vietnam: Da Nang",
+        "Malaysia: Putrajaya"
+      ]
+    },
+    {
+      "field": "alt_map",
+      "count": 5,
+      "frequency_pct": 10.2,
+      "noise": false,
+      "samples": [
+        "Canada: A projection of North America with Canada highlighted in green",
+        "Japan: Projection of Asia with Japan's Area colored green",
+        "India: Image of a globe centred on India, with India highlighted.",
+        "Australia: A map of the eastern hemisphere centred on Australia, using an orthographic proj",
+        "New Zealand: A map of the hemisphere centred on New Zealand, using an orthographic projection"
+      ]
+    },
+    {
+      "field": "religion_ref",
+      "count": 4,
+      "frequency_pct": 8.2,
+      "noise": false,
+      "samples": [
+        "Lebanon: دراسة نقدية في قانون الانتخاب النسبي. Lebanon Files",
+        "Spain: , 4.006 respondents. The question was .",
+        "Ukraine: Sample of 2,018 respondents aged 18 years and over, interviewed 23–28 March 2018",
+        "Malaysia: World Religion Database at the ARDA website, retrieved 2023-08-08"
+      ]
+    },
+    {
+      "field": "established_event11",
+      "count": 4,
+      "frequency_pct": 8.2,
+      "noise": false,
+      "samples": [
+        "Iran: Pahlavi Iran",
+        "Austria: State Treaty",
+        "Ukraine: Current constitution",
+        "Morocco: Current constitution"
+      ]
+    },
+    {
+      "field": "established_date11",
+      "count": 4,
+      "frequency_pct": 8.2,
+      "noise": false,
+      "samples": [
+        "Iran: 15 December 1925",
+        "Austria: 27 July 1955",
+        "Ukraine: 28 June 1996",
+        "Morocco: 29 July 2011"
+      ]
+    },
+    {
+      "field": "area_data2",
+      "count": 4,
+      "frequency_pct": 8.2,
+      "noise": false,
+      "samples": [
+        "France: (50th)",
+        "United States: (3rd)",
+        "Indonesia: 4.85",
+        "Bangladesh: 130,170 km2"
+      ]
+    },
+    {
+      "field": "admin_center_type",
+      "count": 4,
+      "frequency_pct": 8.2,
+      "noise": false,
+      "samples": [
+        "Switzerland: Federal city",
+        "China: Largest city",
+        "India: Largest city",
+        "Vietnam: Largest city"
+      ]
+    },
+    {
+      "field": "languages_sub",
+      "count": 4,
+      "frequency_pct": 8.2,
+      "noise": false,
+      "samples": [
+        "China: yes",
+        "Indonesia: yes",
+        "Ethiopia: yes",
+        "Thailand: yes"
+      ]
+    },
+    {
+      "field": "dst_note",
+      "count": 3,
+      "frequency_pct": 6.1,
+      "noise": false,
+      "samples": [
+        "Spain: Note: most of Spain observes CET/CEST, except the Canary Islands which observe W",
+        "Chile: Magallanes and the Chilean Antarctica, and Aysén Region observes UTC−3 year-roun",
+        "Australia: DST not observed in Qld, WA and NT"
+      ]
+    },
+    {
+      "field": "royal_anthem",
+      "count": 3,
+      "frequency_pct": 6.1,
+      "noise": false,
+      "samples": [
+        "Sweden: \"\"(English: \"The King's Song\")",
+        "Canada: \"God Save the King\"",
+        "Thailand: \"Praise the King\""
+      ]
+    },
+    {
+      "field": "largest_settlement",
+      "count": 3,
+      "frequency_pct": 6.1,
+      "noise": false,
+      "samples": [
+        "China: Shanghai",
+        "India: Delhi",
+        "Vietnam: Ho Chi Minh City"
+      ]
+    },
+    {
+      "field": "largest_settlement_type",
+      "count": 3,
+      "frequency_pct": 6.1,
+      "noise": false,
+      "samples": [
+        "China: city",
+        "India: city",
+        "Vietnam: city"
+      ]
+    },
+    {
+      "field": "flag_type",
+      "count": 2,
+      "frequency_pct": 4.1,
+      "noise": false,
+      "samples": [
+        "Syria: Flag",
+        "United Kingdom: Flag"
+      ]
+    },
+    {
+      "field": "symbol_width",
+      "count": 2,
+      "frequency_pct": 4.1,
+      "noise": false,
+      "samples": [
+        "Syria: 100px",
+        "India: 60px"
+      ]
+    },
+    {
+      "field": "area_footnote",
+      "count": 2,
+      "frequency_pct": 4.1,
+      "noise": false,
+      "samples": [
+        "France: (including metropolitan France and overseas France and excluding Terre Adelie)",
+        "Russia: (within internationally recognised borders)"
+      ]
+    },
+    {
+      "field": "area_label3",
+      "count": 2,
+      "frequency_pct": 4.1,
+      "noise": false,
+      "samples": [
+        "France: Metropolitan France (INSEE)",
+        "Bangladesh: Water area"
+      ]
+    },
+    {
+      "field": "area_data3",
+      "count": 2,
+      "frequency_pct": 4.1,
+      "noise": false,
+      "samples": [
+        "France: (50th)",
+        "Bangladesh: 18,290 km2"
+      ]
+    },
+    {
+      "field": "flag_p1",
+      "count": 2,
+      "frequency_pct": 4.1,
+      "noise": true,
+      "samples": [
+        "France: Flag of France (1794–1815, 1830–1974, 2020–present).svg",
+        "Ethiopia: Flag of Ethiopia (1991-1996).svg"
+      ]
+    },
+    {
+      "field": "linking_name",
+      "count": 2,
+      "frequency_pct": 4.1,
+      "noise": false,
+      "samples": [
+        "United Kingdom: the United Kingdom",
+        "Russia: Russia"
+      ]
+    },
+    {
+      "field": "flag_type_article",
+      "count": 2,
+      "frequency_pct": 4.1,
+      "noise": false,
+      "samples": [
+        "Portugal: Flag of Portugal",
+        "United States: Flag of the United States"
+      ]
+    },
+    {
+      "field": "symbol_type_article",
+      "count": 2,
+      "frequency_pct": 4.1,
+      "noise": false,
+      "samples": [
+        "Portugal: Coat of arms of Portugal",
+        "United States: Great Seal of the United States#Obverse"
+      ]
+    },
+    {
+      "field": "recognized_national_languages",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Syria: Kurdish"
+      ]
+    },
+    {
+      "field": "established_event12",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Iran: Iranian Revolution"
+      ]
+    },
+    {
+      "field": "established_date12",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Iran: 11 February 1979"
+      ]
+    },
+    {
+      "field": "established_event13",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Iran: Islamic Republic established"
+      ]
+    },
+    {
+      "field": "established_date13",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Iran: 1 April 1979"
+      ]
+    },
+    {
+      "field": "established_event14",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Iran: Current constitution"
+      ]
+    },
+    {
+      "field": "established_date14",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Iran: 3 December 1979"
+      ]
+    },
+    {
+      "field": "established_event15",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Iran: Constitutional amendment"
+      ]
+    },
+    {
+      "field": "established_date15",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Iran: 28 July 1989"
+      ]
+    },
+    {
+      "field": "population_label2",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "France: Density"
+      ]
+    },
+    {
+      "field": "population_data2",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "France: /km2 (/sq mi) (106th)"
+      ]
+    },
+    {
+      "field": "population_label3",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "France: Metropolitan France, estimate"
+      ]
+    },
+    {
+      "field": "population_data3",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "France: 66,792,845 (21st)"
+      ]
+    },
+    {
+      "field": "patron_saint",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Switzerland: St Nicholas of Flüe"
+      ]
+    },
+    {
+      "field": "official_website",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Sweden: sweden.se"
+      ]
+    },
+    {
+      "field": "recognised_national_languages",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Portugal: Portuguese Sign Language"
+      ]
+    },
+    {
+      "field": "recognised_regional_languages",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Portugal: Mirandese"
+      ]
+    },
+    {
+      "field": "area_land_km2",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Portugal: 92,225"
+      ]
+    },
+    {
+      "field": "area_land_sq_mi",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Portugal: 35,608"
+      ]
+    },
+    {
+      "field": "area_water_km2",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Portugal: 64,372"
+      ]
+    },
+    {
+      "field": "area_water_sq_mi",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Portugal: 24,854"
+      ]
+    },
+    {
+      "field": "area_link",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "United States: Geography of the United States"
+      ]
+    },
+    {
+      "field": "flag_anthem",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Brazil: \"National Flag Anthem\"File:Brazilian Flag Anthem (Ministry of Education).ogg"
+      ]
+    },
+    {
+      "field": "native_name",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Colombia: (Spanish)"
+      ]
+    },
+    {
+      "field": "recognized_regional_languages",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Colombia: Creole English (in San Andrés and Providencia)64 other languages"
+      ]
+    },
+    {
+      "field": "languages2_sub",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Japan: yes"
+      ]
+    },
+    {
+      "field": "anthem",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "South Korea: \"Patriotic Song\""
+      ]
+    },
+    {
+      "field": "flag_size",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Nigeria: 130"
+      ]
+    },
+    {
+      "field": "border_p2",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Ethiopia: Eritea, Kenya, Sudan, South Sudan, Djibouti, Somalia"
+      ]
+    },
+    {
+      "field": "hdi_ref",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Tanzania: Human Development Insights Human Development Reports"
+      ]
+    },
+    {
+      "field": "ethnic_groups_ref",
+      "count": 1,
+      "frequency_pct": 2.0,
+      "noise": false,
+      "samples": [
+        "Malaysia: MyGOV - The Government of Malaysia's Official Portal. (n.d.). https://www.malays"
+      ]
+    }
+  ]
+}
