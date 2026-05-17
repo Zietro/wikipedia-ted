@@ -1,5 +1,5 @@
 """
-collector.py — Wikipedia Infobox Collector (Project 1)
+Wikipedia Infobox Collector (Project 1)
 =======================================================
 Scrapes Wikipedia country infoboxes and saves them as XML files.
 
@@ -90,7 +90,7 @@ WIKIPEDIA_NAME_OVERRIDES: dict[str, str] = {
 }
 
 # ---------------------------------------------------------------------------
-# Hardcoded fallback — used if the live Wikipedia scrape fails
+# Hardcoded fallback used if the live Wikipedia scrape fails
 # ---------------------------------------------------------------------------
 
 _FALLBACK_UN_MEMBER_STATES: list[str] = [
@@ -226,7 +226,7 @@ def _build_un_member_states() -> list[str]:
     return canonical
 
 
-# Module-level list — built once when the module is imported
+# Module-level list, built once when the module is imported
 UN_MEMBER_STATES: list[str] = _build_un_member_states()
 
 
@@ -417,7 +417,7 @@ def collect_all(overwrite: bool = False) -> dict[str, str]:
                     delay = base_delay * (attempt + 1)
                     print(
                         f"[RETRY] {country} (attempt {attempt + 1}/{max_retries}): "
-                        f"{exc} — retrying in {delay}s"
+                        f"{exc}, retrying in {delay}s"
                     )
                     time.sleep(delay)
 

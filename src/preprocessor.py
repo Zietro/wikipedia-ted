@@ -31,7 +31,7 @@ FIELD_NAME_MAP = {
 # Frequency threshold: >= 75%. Lower-frequency fields included only where
 # semantically important (ethnic_groups, religion, official_languages).
 WHITELIST = {
-    # Identity (98-100% frequency — universally present)
+    # Identity (98-100% frequency, universally present)
     "conventional_long_name", "common_name", "capital", "largest_city", "demonym",
     "official_languages", "regional_languages", "languages_type",
 
@@ -67,7 +67,7 @@ WHITELIST = {
     "hdi", "hdi_year", "hdi_rank", "hdi_change",
     "currency", "currency_code",
 
-    # Society (included despite lower frequency — semantically important)
+    # Society (included despite lower frequency, semantically important)
     "religion", "ethnic_groups",
     "drives_on", "calling_code",
     "utc_offset", "utc_offset_dst", "time_zone",
@@ -76,15 +76,15 @@ WHITELIST = {
 # Content nodes under these fields are tagged non_comparable = True.
 # Their structural parent participates normally in TED.
 # The content value does not affect the similarity score.
-# Patching is unaffected — nodes remain in the tree and edit script.
+# Patching is unaffected; nodes remain in the tree and edit script.
 #
 # Rationale per field (from sample inspection):
-#   conventional_long_name / common_name — country name variants, not comparable
-#   capital / largest_city — city names are country identifiers
-#   currency / currency_code — assigned identifiers, not meaningful quantities
-#   leader_name1..4 — person names, not comparable roles
-#   calling_code — assigned numeric identifier
-#   utc_offset / utc_offset_dst / time_zone — assigned identifiers
+#   conventional_long_name / common_name: country name variants, not comparable
+#   capital / largest_city: city names are country identifiers
+#   currency / currency_code: assigned identifiers, not meaningful quantities
+#   leader_name1..4: person names, not comparable roles
+#   calling_code: assigned numeric identifier
+#   utc_offset / utc_offset_dst / time_zone: assigned identifiers
 NON_COMPARABLE_FIELDS = {
     "conventional_long_name", "common_name",
     "capital", "largest_city",

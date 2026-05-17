@@ -1,5 +1,5 @@
 """
-matrix_builder.py — Pairwise Similarity Matrix Builder (Project 2)
+Pairwise Similarity Matrix Builder (Project 2)
 ====================================================================
 Builds, validates, caches, and loads the NxN similarity matrix for all
 UN member states scraped by Project 1.
@@ -36,7 +36,7 @@ MATRIX_PATH = os.path.join(
     os.path.dirname(__file__), "..", "data", "un_similarity_matrix_193.json"
 )
 
-# Single authoritative working set — sourced from Project 1's collector.
+# Single authoritative working set, sourced from Project 1 collector.
 # No duplication: if the country list ever changes, only collector.py changes.
 WORKING_SET: list[str] = UN_MEMBER_STATES
 
@@ -69,11 +69,11 @@ def build_matrix(countries: list[str], overwrite: bool = False) -> dict:
         return data["matrix"]
 
     # Step 1: re-scrape infoboxes via Project 1
-    print("[matrix_builder] Step 1 — Scraping Wikipedia infoboxes via Project 1...")
+    print("[matrix_builder] Step 1: Scraping Wikipedia infoboxes via Project 1...")
     collect_all(overwrite=overwrite)
 
     # Step 2: load preprocessed trees
-    print(f"\n[matrix_builder] Step 2 — Loading trees for {len(countries)} countries...")
+    print(f"\n[matrix_builder] Step 2: Loading trees for {len(countries)} countries...")
     trees = {}
     skipped = []
     for country in countries:
@@ -89,7 +89,7 @@ def build_matrix(countries: list[str], overwrite: bool = False) -> dict:
     total_pairs = n * (n - 1) // 2
 
     # Step 3: compute all pairs
-    print(f"\n[matrix_builder] Step 3 — Computing {total_pairs} pairs for {n} countries...")
+    print(f"\n[matrix_builder] Step 3: Computing {total_pairs} pairs for {n} countries...")
 
     matrix = {c: {c: 1.0} for c in loaded}  # diagonal = 1.0
 

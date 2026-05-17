@@ -1,17 +1,17 @@
 """
-clustering.py — Clustering Algorithms (Project 2)
-===================================================
-Implements two clustering algorithms as described in Lecture 10:
+Clustering Algorithms (Project 2)
 
-  1. Agglomerative Hierarchical Clustering (§5.2)
+Implements two clustering algorithms:
+
+  1. Agglomerative Hierarchical Clustering
      - Bottom-up, average-link inter-cluster similarity
      - Builds a full dendrogram; user cuts at k or a similarity threshold
 
-  2. K-Means Partitional Clustering (§5.1)
+  2. K-Means Partitional Clustering
      - Medoid-based (closest real data object to the mean) since we operate
        on a precomputed similarity matrix rather than raw feature vectors
      - Multiple random restarts; best result kept by intra-cluster similarity
-     - Convergence: no object changes cluster between iterations (Lecture 10)
+     - Convergence: no object changes cluster between iterations
 
 Neither algorithm uses or references any geographic data.
 Clustering is driven entirely by the pairwise similarity matrix from Project 1.
@@ -22,7 +22,7 @@ from dataclasses import dataclass, field
 
 
 # ---------------------------------------------------------------------------
-# Data structures — Agglomerative
+# Data structures: Agglomerative
 # ---------------------------------------------------------------------------
 
 @dataclass
@@ -60,7 +60,7 @@ class Dendrogram:
 
         for merge in self.merges:
             if merge.similarity < threshold:
-                # Stop here — do not apply this or any later merge
+                # Stop merging: similarity below threshold
                 break
             # Apply merge: remove the two source clusters, add the merged one
             key_a = tuple(sorted(merge.cluster_a))
@@ -107,7 +107,7 @@ class AgglomerativeResult:
 
 
 # ---------------------------------------------------------------------------
-# Data structures — K-Means
+# Data structures: K-Means
 # ---------------------------------------------------------------------------
 
 @dataclass
@@ -115,13 +115,13 @@ class KMeansResult:
     """Returned by kmeans(). Contains cluster assignments and quality score."""
     clusters: list[list[str]]
     medoids: list[str]                 # Most representative object per cluster
-    intra_cluster_similarity: float    # Sum of sim(object, medoid) — higher is better
+    intra_cluster_similarity: float    # Sum of sim(object, medoid); higher is better
     k: int
     iterations_used: int
 
 
 # ---------------------------------------------------------------------------
-# Agglomerative clustering (Lecture 10 §5.2)
+# Agglomerative clustering
 # ---------------------------------------------------------------------------
 
 def _average_link_similarity(
@@ -130,9 +130,9 @@ def _average_link_similarity(
     matrix: dict,
 ) -> float:
     """
-    Average-link inter-cluster similarity (Lecture 10 §5.2).
+    Average-link inter-cluster similarity.
     Cluster similarity = average similarity of all cross-cluster pairs.
-    Most robust against noise; most widely used (per lecture).
+    Most robust against noise; most widely used.
     """
     total = sum(matrix[a][b] for a in cluster_a for b in cluster_b)
     return total / (len(cluster_a) * len(cluster_b))
@@ -145,7 +145,7 @@ def agglomerative(
     threshold: float | None = None,
 ) -> AgglomerativeResult:
     """
-    Agglomerative hierarchical clustering (Lecture 10 §5.2):
+    Agglomerative hierarchical clustering:
 
     1. Initialise: each object is its own cluster.
     2. Repeat:
@@ -196,7 +196,7 @@ def agglomerative(
 
 
 # ---------------------------------------------------------------------------
-# K-Means clustering (Lecture 10 §5.1)
+# K-Means clustering
 # ---------------------------------------------------------------------------
 
 def _compute_medoid(cluster: list[str], matrix: dict) -> str:
@@ -221,7 +221,7 @@ def _assign_to_medoids(
     matrix: dict,
 ) -> list[list[str]]:
     """
-    Assignment step (Lecture 10 §5.1):
+    Assignment step:
     Assign each object to the cluster whose medoid it is most similar to.
     Each object goes to exactly one cluster (hard partitioning).
     """
@@ -263,7 +263,7 @@ def _kmeans_single_run(
     seed: int,
 ) -> KMeansResult:
     """
-    One full run of K-Means (Lecture 10 §5.1):
+    One full run of K-Means:
 
     1. Initialise: randomly select k medoids.
     2. Repeat:
@@ -299,7 +299,7 @@ def _kmeans_single_run(
 
         medoids = new_medoids
 
-    # Max iterations reached without convergence — return best state found
+    # Max iterations reached without convergence
     clusters = _assign_to_medoids(countries, medoids, matrix)
     clusters = [
         cluster if cluster else [medoids[i]]
@@ -322,18 +322,17 @@ def kmeans(
     n_runs: int = 5,
 ) -> KMeansResult:
     """
-    K-Means with multiple random restarts (Lecture 10 §5.1 — solution #1
-    to overcome dependency on initial centroids).
+    K-Means with multiple random restarts to overcome dependency on
+    initial centroids.
 
     Runs the algorithm n_runs times with different random seeds.
     Returns the run with the highest total intra-cluster similarity,
-    which corresponds to the lowest SSE (Lecture 10 convergence criterion #2).
+    which corresponds to the lowest SSE.
 
     NOTE on cluster sizes: K-Means naturally produces unequal cluster sizes
-    because each object is assigned to its closest centroid — this is the
-    correct lecture-defined assignment step. The lecture explicitly lists
-    "not suitable for clusters with different sizes" as a known limitation
-    (slide 44), not as a design goal to override. Enforcing equal sizes would
+    because each object is assigned to its closest centroid. This is the
+    correct assignment step. The algorithm
+    is known to not be ideal for clusters with very different sizes, but this is a limitation, not a design goal to override. Enforcing equal sizes would
     violate the assignment rule and degrade intra-cluster similarity.
 
     Args:
