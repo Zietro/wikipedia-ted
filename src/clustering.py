@@ -1,57 +1,98 @@
+"""
+clustering.py — Clustering Algorithms (Project 2)
+===================================================
+Implements two clustering algorithms as described in Lecture 10:
+
+  1. Agglomerative Hierarchical Clustering (§5.2)
+     - Bottom-up, average-link inter-cluster similarity
+     - Builds a full dendrogram; user cuts at k or a similarity threshold
+
+  2. K-Means Partitional Clustering (§5.1)
+     - Medoid-based (closest real data object to the mean) since we operate
+       on a precomputed similarity matrix rather than raw feature vectors
+     - Multiple random restarts; best result kept by intra-cluster similarity
+     - Convergence: no object changes cluster between iterations (Lecture 10)
+
+Neither algorithm uses or references any geographic data.
+Clustering is driven entirely by the pairwise similarity matrix from Project 1.
+"""
+
 import random
 from dataclasses import dataclass, field
 
 
+# ---------------------------------------------------------------------------
+# Data structures — Agglomerative
+# ---------------------------------------------------------------------------
+
 @dataclass
 class MergeStep:
+    """Records a single merge event in the agglomerative dendrogram."""
     cluster_a: list[str]
     cluster_b: list[str]
-    similarity: float
-    merged: list[str]
+    similarity: float          # Average-link similarity at merge time
+    merged: list[str]          # Combined cluster after the merge
 
 
 @dataclass
 class Dendrogram:
+    """
+    Sequence of merge steps produced by agglomerative clustering.
+    Merges are stored in order (earliest = highest similarity first).
+    """
     merges: list[MergeStep] = field(default_factory=list)
 
     def cut_at_threshold(self, threshold: float) -> list[list[str]]:
-        clusters = []
-        remaining = set()
-        for merge in self.merges:
-            if merge.similarity >= threshold:
-                remaining.add(tuple(sorted(merge.merged)))
-            else:
-                for member in merge.cluster_a:
-                    remaining.discard(tuple(sorted(merge.cluster_a)))
-                for member in merge.cluster_b:
-                    remaining.discard(tuple(sorted(merge.cluster_b)))
-                remaining.add(tuple(sorted(merge.cluster_a)))
-                remaining.add(tuple(sorted(merge.cluster_b)))
+        """
+        Return flat clusters by stopping merges whose similarity falls
+        below `threshold`. Clusters whose merge similarity >= threshold
+        are kept merged; the rest remain as separate groups.
+        """
+        # Replay merges; only accept those above the threshold
+        active: dict[tuple, list[str]] = {}
 
-        seen = set()
-        result = []
-        for cluster in remaining:
-            key = tuple(sorted(cluster))
-            if key not in seen:
-                seen.add(key)
-                result.append(list(cluster))
-        return result
+        # Start: every country is its own singleton cluster
+        all_countries: list[str] = []
+        if self.merges:
+            all_countries = list(self.merges[-1].merged)
+        for country in all_countries:
+            active[tuple([country])] = [country]
+
+        for merge in self.merges:
+            if merge.similarity < threshold:
+                # Stop here — do not apply this or any later merge
+                break
+            # Apply merge: remove the two source clusters, add the merged one
+            key_a = tuple(sorted(merge.cluster_a))
+            key_b = tuple(sorted(merge.cluster_b))
+            active.pop(key_a, None)
+            active.pop(key_b, None)
+            key_merged = tuple(sorted(merge.merged))
+            active[key_merged] = merge.merged
+
+        return list(active.values())
 
     def cut_at_k(self, k: int) -> list[list[str]]:
+        """
+        Return exactly k flat clusters by replaying merges and stopping
+        once the desired number of clusters is reached.
+        """
         if k <= 0:
             raise ValueError("k must be a positive integer.")
+
         all_countries = self.merges[-1].merged if self.merges else []
         if k >= len(all_countries):
             return [[c] for c in all_countries]
 
+        # Start with N singleton clusters
         active: list[list[str]] = [[c] for c in all_countries]
 
         for merge in self.merges:
             if len(active) <= k:
                 break
-            a_key = tuple(sorted(merge.cluster_a))
-            b_key = tuple(sorted(merge.cluster_b))
-            active = [c for c in active if tuple(sorted(c)) not in (a_key, b_key)]
+            key_a = tuple(sorted(merge.cluster_a))
+            key_b = tuple(sorted(merge.cluster_b))
+            active = [c for c in active if tuple(sorted(c)) not in (key_a, key_b)]
             active.append(merge.merged)
 
         return active
@@ -59,25 +100,40 @@ class Dendrogram:
 
 @dataclass
 class AgglomerativeResult:
+    """Returned by agglomerative(). Contains the full dendrogram and flat cut."""
     dendrogram: Dendrogram
     flat_clusters: list[list[str]]
     linkage: str = "average"
 
 
+# ---------------------------------------------------------------------------
+# Data structures — K-Means
+# ---------------------------------------------------------------------------
+
 @dataclass
 class KMeansResult:
+    """Returned by kmeans(). Contains cluster assignments and quality score."""
     clusters: list[list[str]]
-    medoids: list[str]
-    intra_cluster_similarity: float
+    medoids: list[str]                 # Most representative object per cluster
+    intra_cluster_similarity: float    # Sum of sim(object, medoid) — higher is better
     k: int
     iterations_used: int
 
+
+# ---------------------------------------------------------------------------
+# Agglomerative clustering (Lecture 10 §5.2)
+# ---------------------------------------------------------------------------
 
 def _average_link_similarity(
     cluster_a: list[str],
     cluster_b: list[str],
     matrix: dict,
 ) -> float:
+    """
+    Average-link inter-cluster similarity (Lecture 10 §5.2).
+    Cluster similarity = average similarity of all cross-cluster pairs.
+    Most robust against noise; most widely used (per lecture).
+    """
     total = sum(matrix[a][b] for a in cluster_a for b in cluster_b)
     return total / (len(cluster_a) * len(cluster_b))
 
@@ -88,24 +144,41 @@ def agglomerative(
     k: int | None = None,
     threshold: float | None = None,
 ) -> AgglomerativeResult:
+    """
+    Agglomerative hierarchical clustering (Lecture 10 §5.2):
+
+    1. Initialise: each object is its own cluster.
+    2. Repeat:
+       a. Find the two clusters with maximum average-link similarity.
+       b. Merge them; record the merge step.
+    3. Until one cluster remains (full dendrogram built).
+    4. Cut the dendrogram at k clusters or at a similarity threshold.
+
+    Args:
+        matrix:    Pairwise similarity matrix (nested dict).
+        countries: List of country names to cluster.
+        k:         Desired number of output clusters (mutually exclusive with threshold).
+        threshold: Similarity threshold at which to stop merging.
+
+    Returns:
+        AgglomerativeResult with full dendrogram and flat cluster cut.
+    """
     if k is None and threshold is None:
-        raise ValueError("Provide either k or threshold to determine where to cut.")
+        raise ValueError("Provide either k or threshold.")
 
     clusters: list[list[str]] = [[c] for c in countries]
     dendrogram = Dendrogram()
 
     while len(clusters) > 1:
         best_sim = -1.0
-        best_i = 0
-        best_j = 1
+        best_i, best_j = 0, 1
 
         for i in range(len(clusters)):
             for j in range(i + 1, len(clusters)):
                 sim = _average_link_similarity(clusters[i], clusters[j], matrix)
                 if sim > best_sim:
                     best_sim = sim
-                    best_i = i
-                    best_j = j
+                    best_i, best_j = i, j
 
         merged = clusters[best_i] + clusters[best_j]
         dendrogram.merges.append(MergeStep(
@@ -118,15 +191,20 @@ def agglomerative(
         clusters = [c for idx, c in enumerate(clusters) if idx not in (best_i, best_j)]
         clusters.append(merged)
 
-    if k is not None:
-        flat = dendrogram.cut_at_k(k)
-    else:
-        flat = dendrogram.cut_at_threshold(threshold)
-
+    flat = dendrogram.cut_at_k(k) if k is not None else dendrogram.cut_at_threshold(threshold)
     return AgglomerativeResult(dendrogram=dendrogram, flat_clusters=flat)
 
 
+# ---------------------------------------------------------------------------
+# K-Means clustering (Lecture 10 §5.1)
+# ---------------------------------------------------------------------------
+
 def _compute_medoid(cluster: list[str], matrix: dict) -> str:
+    """
+    Find the medoid: the cluster member with the highest average similarity
+    to all other members. The medoid is the closest real object to the
+    theoretical centroid when working with a precomputed similarity matrix.
+    """
     best_country = cluster[0]
     best_avg = -1.0
     for candidate in cluster:
@@ -142,18 +220,39 @@ def _assign_to_medoids(
     medoids: list[str],
     matrix: dict,
 ) -> list[list[str]]:
+    """
+    Assignment step (Lecture 10 §5.1):
+    Assign each object to the cluster whose medoid it is most similar to.
+    Each object goes to exactly one cluster (hard partitioning).
+    """
     clusters: list[list[str]] = [[] for _ in medoids]
     for country in countries:
-        best_idx = max(range(len(medoids)), key=lambda i: matrix[country][medoids[i]])
+        best_idx = max(
+            range(len(medoids)),
+            key=lambda i: matrix[country][medoids[i]],
+        )
         clusters[best_idx].append(country)
     return clusters
 
 
-def _total_intra_similarity(clusters: list[list[str]], medoids: list[str], matrix: dict) -> float:
-    total = 0.0
-    for cluster, medoid in zip(clusters, medoids):
-        total += sum(matrix[c][medoid] for c in cluster)
-    return round(total, 4)
+def _total_intra_similarity(
+    clusters: list[list[str]],
+    medoids: list[str],
+    matrix: dict,
+) -> float:
+    """
+    Total intra-cluster similarity: sum of sim(object, medoid) over all
+    objects in all clusters. Used to select the best run among restarts.
+    Higher = better clustering quality.
+    """
+    return round(
+        sum(
+            matrix[country][medoid]
+            for cluster, medoid in zip(clusters, medoids)
+            for country in cluster
+        ),
+        4,
+    )
 
 
 def _kmeans_single_run(
@@ -163,27 +262,49 @@ def _kmeans_single_run(
     max_iterations: int,
     seed: int,
 ) -> KMeansResult:
+    """
+    One full run of K-Means (Lecture 10 §5.1):
+
+    1. Initialise: randomly select k medoids.
+    2. Repeat:
+       a. Assign each object to its closest medoid.
+       b. Recompute medoids (object with highest avg similarity to cluster).
+    3. Until no object changes cluster (convergence).
+    """
     rng = random.Random(seed)
     medoids = rng.sample(countries, k)
 
     for iteration in range(1, max_iterations + 1):
         clusters = _assign_to_medoids(countries, medoids, matrix)
-        clusters = [c if c else [medoids[i]] for i, c in enumerate(clusters)]
+
+        # Guard: ensure no cluster is left empty (can happen with bad init)
+        clusters = [
+            cluster if cluster else [medoids[i]]
+            for i, cluster in enumerate(clusters)
+        ]
 
         new_medoids = [_compute_medoid(cluster, matrix) for cluster in clusters]
 
+        # Convergence check: no medoid changed → no object changed cluster
         if new_medoids == medoids:
             return KMeansResult(
                 clusters=clusters,
                 medoids=new_medoids,
-                intra_cluster_similarity=_total_intra_similarity(clusters, new_medoids, matrix),
+                intra_cluster_similarity=_total_intra_similarity(
+                    clusters, new_medoids, matrix
+                ),
                 k=k,
                 iterations_used=iteration,
             )
+
         medoids = new_medoids
 
+    # Max iterations reached without convergence — return best state found
     clusters = _assign_to_medoids(countries, medoids, matrix)
-    clusters = [c if c else [medoids[i]] for i, c in enumerate(clusters)]
+    clusters = [
+        cluster if cluster else [medoids[i]]
+        for i, cluster in enumerate(clusters)
+    ]
     return KMeansResult(
         clusters=clusters,
         medoids=medoids,
@@ -200,13 +321,41 @@ def kmeans(
     max_iterations: int = 100,
     n_runs: int = 5,
 ) -> KMeansResult:
+    """
+    K-Means with multiple random restarts (Lecture 10 §5.1 — solution #1
+    to overcome dependency on initial centroids).
+
+    Runs the algorithm n_runs times with different random seeds.
+    Returns the run with the highest total intra-cluster similarity,
+    which corresponds to the lowest SSE (Lecture 10 convergence criterion #2).
+
+    NOTE on cluster sizes: K-Means naturally produces unequal cluster sizes
+    because each object is assigned to its closest centroid — this is the
+    correct lecture-defined assignment step. The lecture explicitly lists
+    "not suitable for clusters with different sizes" as a known limitation
+    (slide 44), not as a design goal to override. Enforcing equal sizes would
+    violate the assignment rule and degrade intra-cluster similarity.
+
+    Args:
+        matrix:         Pairwise similarity matrix (nested dict).
+        countries:      List of country names.
+        k:              Number of clusters.
+        max_iterations: Per-run iteration cap.
+        n_runs:         Number of independent restarts.
+
+    Returns:
+        KMeansResult for the best-scoring run.
+    """
     if k <= 0 or k > len(countries):
         raise ValueError(f"k must be between 1 and {len(countries)}.")
 
-    best_result = None
+    best_result: KMeansResult | None = None
     for run in range(n_runs):
         result = _kmeans_single_run(matrix, countries, k, max_iterations, seed=run)
-        if best_result is None or result.intra_cluster_similarity > best_result.intra_cluster_similarity:
+        if (
+            best_result is None
+            or result.intra_cluster_similarity > best_result.intra_cluster_similarity
+        ):
             best_result = result
 
     return best_result
