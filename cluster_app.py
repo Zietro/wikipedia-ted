@@ -15,15 +15,13 @@ Evaluation uses the Dunn Index (internal measure, no external ground truth).
 import json
 import os
 
+import numpy as np
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import pycountry
 
-# Remove the old import:
-# from src.matrix_builder import build_matrix, load_matrix, WORKING_SET
-
-# Replace with:
 from src.matrix_builder import build_matrix, load_matrix
 from src.collector import UN_MEMBER_STATES as WORKING_SET
 from src.clustering import agglomerative, kmeans
@@ -147,6 +145,199 @@ def _dunn_card(eval_result, label: str = "") -> None:
     st.caption(
         f"{eval_result.n_clusters} clusters · {eval_result.n_objects} countries evaluated"
     )
+
+
+# ISO 3166 alpha-3 mapping for choropleth
+_ISO_OVERRIDES = {
+    "Turkey": "TUR",
+    "Democratic Republic of the Congo": "COD",
+    "Ivory Coast": "CIV",
+    "Republic of the Congo": "COG",
+    "Palestine": "PSE",
+    "North Korea": "PRK",
+    "South Korea": "KOR",
+    "Micronesia": "FSM",
+    "Brunei": "BRN",
+    "Laos": "LAO",
+    "Syria": "SYR",
+    "Iran": "IRN",
+    "Russia": "RUS",
+    "Venezuela": "VEN",
+    "Bolivia": "BOL",
+    "Tanzania": "TZA",
+    "Vietnam": "VNM",
+    "Czech Republic": "CZE",
+    "Moldova": "MDA",
+    "Eswatini": "SWZ",
+    "Cabo Verde": "CPV",
+    "Gambia": "GMB",
+    "Bahamas": "BHS",
+    "Comoros": "COM",
+    "São Tomé and Príncipe": "STP",
+}
+
+
+def _get_iso_alpha3(country_name: str) -> str:
+    """Resolve a country name to its ISO 3166 alpha-3 code."""
+    if country_name in _ISO_OVERRIDES:
+        return _ISO_OVERRIDES[country_name]
+    match = pycountry.countries.get(name=country_name)
+    if match:
+        return match.alpha_3
+    try:
+        results = pycountry.countries.search_fuzzy(country_name)
+        return results[0].alpha_3
+    except LookupError:
+        return ""
+
+
+def _build_cluster_map(
+    clusters: list[list[str]],
+    title: str = "Cluster Map",
+) -> go.Figure:
+    """Build a Plotly choropleth map color-coded by cluster assignment."""
+    rows = []
+    for i, cluster in enumerate(clusters):
+        for country in cluster:
+            iso = _get_iso_alpha3(country)
+            if iso:
+                rows.append({
+                    "Country": country,
+                    "ISO": iso,
+                    "Cluster": f"Cluster {i + 1}",
+                    "Cluster #": i + 1,
+                })
+
+    df = pd.DataFrame(rows)
+    if df.empty:
+        return go.Figure()
+
+    fig = px.choropleth(
+        df,
+        locations="ISO",
+        color="Cluster",
+        hover_name="Country",
+        color_discrete_sequence=px.colors.qualitative.Set2,
+        title=title,
+    )
+    fig.update_layout(
+        geo=dict(
+            showframe=False,
+            showcoastlines=True,
+            coastlinecolor="lightgray",
+            projection_type="natural earth",
+        ),
+        height=500,
+        margin=dict(l=0, r=0, t=40, b=0),
+        legend_title_text="Cluster",
+    )
+    return fig
+
+
+def _merges_to_linkage(merges: list, all_countries: list[str]) -> np.ndarray:
+    """
+    Convert a list of MergeStep objects to a SciPy linkage matrix.
+
+    SciPy linkage format: each row is [idx_a, idx_b, distance, size].
+    Indices 0..n-1 are original data points; n+ are merged clusters.
+    """
+    country_to_idx = {c: i for i, c in enumerate(all_countries)}
+
+    cluster_map: dict[frozenset, int] = {}
+    for c, idx in country_to_idx.items():
+        cluster_map[frozenset([c])] = idx
+
+    next_idx = len(all_countries)
+    Z = []
+
+    for merge in merges:
+        key_a = frozenset(merge.cluster_a)
+        key_b = frozenset(merge.cluster_b)
+
+        idx_a = cluster_map.get(key_a)
+        idx_b = cluster_map.get(key_b)
+        if idx_a is None or idx_b is None:
+            continue
+
+        distance = round(1.0 - merge.similarity, 6)
+        size = len(merge.merged)
+        Z.append([float(idx_a), float(idx_b), distance, float(size)])
+
+        cluster_map[frozenset(merge.merged)] = next_idx
+        next_idx += 1
+
+    return np.array(Z)
+
+
+def _build_dendrogram(
+    merges: list,
+    n_clusters: int,
+    all_countries: list[str] | None = None,
+):
+    """
+    Build a SciPy dendrogram truncated to the top-level merges.
+
+    Returns a matplotlib Figure rendered via st.pyplot().
+    Truncated to show at most 30 leaf groups so labels stay readable.
+    Branches below the cut are colored, branches above are red.
+    """
+    from scipy.cluster.hierarchy import dendrogram as scipy_dendrogram
+    import matplotlib.pyplot as plt
+    import matplotlib
+
+    if all_countries is None:
+        all_countries = list(merges[-1].merged) if merges else []
+
+    Z = _merges_to_linkage(merges, all_countries)
+    if len(Z) == 0:
+        return None
+
+    n = len(all_countries)
+    p = min(30, max(n_clusters + 5, n_clusters * 2))
+
+    # Distance at the cut point: the merge that would reduce k+1 to k clusters
+    cut_merge_idx = len(merges) - (n_clusters - 1) - 1
+    if 0 <= cut_merge_idx < len(merges):
+        color_threshold = 1.0 - merges[cut_merge_idx].similarity
+    else:
+        color_threshold = 0
+
+    fig, ax = plt.subplots(figsize=(14, 6))
+
+    scipy_dendrogram(
+        Z,
+        labels=all_countries,
+        ax=ax,
+        truncate_mode="lastp",
+        p=p,
+        leaf_rotation=45,
+        leaf_font_size=8,
+        color_threshold=color_threshold,
+        above_threshold_color="#EF5350",
+    )
+
+    if color_threshold > 0:
+        ax.axhline(
+            y=color_threshold,
+            color="gray",
+            linestyle="--",
+            alpha=0.6,
+        )
+        ax.text(
+            ax.get_xlim()[1] * 0.98,
+            color_threshold + 0.005,
+            f"k = {n_clusters}",
+            ha="right",
+            va="bottom",
+            fontsize=9,
+            color="gray",
+        )
+
+    ax.set_ylabel("Distance (1 - similarity)")
+    ax.set_title(f"Agglomerative Dendrogram (truncated to top {p} groups)")
+    fig.tight_layout()
+
+    return fig
 
 
 # Tabs
@@ -335,26 +526,45 @@ with tab2:
                 )
                 st.plotly_chart(fig, use_container_width=True)
 
-            # Dendrogram merge table
-            st.subheader("Dendrogram (merge sequence)")
+            # Cluster map
+            st.subheader("Cluster Map")
+            map_fig = _build_cluster_map(
+                result.flat_clusters,
+                title=f"Agglomerative Clustering: {n_clusters} clusters",
+            )
+            st.plotly_chart(map_fig, use_container_width=True)
+
+            # Dendrogram
+            st.subheader("Dendrogram")
             st.caption(
-                "Merges shown in order of decreasing similarity. Earlier rows represent more natural groupings."
+                "Blue bars are merges that form the final clusters. "
+                "Red bars are merges that would reduce the cluster count further. "
+                "The dashed line marks the cut point."
             )
-            merge_data = [
-                {
-                    "Step": i + 1,
-                    "Group A": ", ".join(sorted(s.cluster_a)),
-                    "Group B": ", ".join(sorted(s.cluster_b)),
-                    "Avg-Link Similarity": s.similarity,
-                    "Merged size": len(s.merged),
-                }
-                for i, s in enumerate(result.dendrogram.merges)
-            ]
-            st.dataframe(
-                pd.DataFrame(merge_data),
-                use_container_width=True,
-                hide_index=True,
+            dendro_fig = _build_dendrogram(
+                result.dendrogram.merges, n_clusters, agg_countries
             )
+            if dendro_fig is not None:
+                st.pyplot(dendro_fig)
+            else:
+                st.warning("Could not build dendrogram.")
+
+            with st.expander("Full merge sequence (table)"):
+                merge_data = [
+                    {
+                        "Step": i + 1,
+                        "Group A": ", ".join(sorted(s.cluster_a)),
+                        "Group B": ", ".join(sorted(s.cluster_b)),
+                        "Avg-Link Similarity": s.similarity,
+                        "Merged size": len(s.merged),
+                    }
+                    for i, s in enumerate(result.dendrogram.merges)
+                ]
+                st.dataframe(
+                    pd.DataFrame(merge_data),
+                    use_container_width=True,
+                    hide_index=True,
+                )
 
             # Internal evaluation: Dunn Index
             st.subheader("Internal Evaluation: Dunn Index")
@@ -449,6 +659,14 @@ with tab3:
                 )
                 st.plotly_chart(fig, use_container_width=True)
 
+            # Cluster map
+            st.subheader("Cluster Map")
+            map_fig = _build_cluster_map(
+                result.clusters,
+                title=f"K-Means Clustering: {result.k} clusters",
+            )
+            st.plotly_chart(map_fig, use_container_width=True)
+
             # Internal evaluation: Dunn Index
             st.subheader("Internal Evaluation: Dunn Index")
             st.caption(
@@ -540,7 +758,7 @@ with tab4:
             # Dunn Index comparison
             st.subheader("Internal Evaluation: Dunn Index Comparison")
             st.caption(
-                "The Dunn Index is an internal measure No external "
+                "The Dunn Index is an internal measure. No external "
                 "reference data needed. Higher = more compact, better-separated clusters."
             )
 
