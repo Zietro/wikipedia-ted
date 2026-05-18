@@ -95,20 +95,18 @@ def _build_heatmap(
     return fig
 
 
-def _avg_similarity_to_cluster(
-    country: str,
-    cluster: list[str],
-    matrix: dict,
-) -> float:
-    """
-    Average similarity of a single country to the OTHER members of its cluster.
-    A legitimate per-country quality indicator for any clustering algorithm —
-    does not require designating any cluster member as a centroid/medoid.
-    """
-    others = [c for c in cluster if c != country]
-    if not others:
-        return 1.0  # Singleton: trivially "perfectly similar to its cluster"
-    return sum(matrix[country][o] for o in others) / len(others)
+def _compute_medoid(cluster: list[str], matrix: dict) -> str:
+    """Find the cluster member with highest average similarity to all others."""
+    if len(cluster) == 1:
+        return cluster[0]
+    best = cluster[0]
+    best_avg = -1.0
+    for candidate in cluster:
+        avg = sum(matrix[candidate][other] for other in cluster) / len(cluster)
+        if avg > best_avg:
+            best_avg = avg
+            best = candidate
+    return best
 
 
 def _cluster_table(
@@ -116,59 +114,29 @@ def _cluster_table(
     medoids: list[str] | None = None,
     matrix: dict | None = None,
 ) -> pd.DataFrame:
-    """
-    Build a DataFrame of cluster assignments.
+    """Build a DataFrame of cluster assignments with medoid and similarity info."""
+    if medoids is None and matrix is not None:
+        medoids = [_compute_medoid(c, matrix) for c in clusters]
 
-    Two modes (chosen by whether `medoids` is supplied):
+    medoid_map = {}
+    if medoids:
+        for i, medoid in enumerate(medoids):
+            medoid_map[i] = medoid
 
-    K-Means mode  — medoids is not None:
-        Columns: Cluster, Country, Role ('medoid' or ''), Sim to Medoid, Cluster Size
-        Used by K-Means, which by construction has a designated medoid per cluster
-        (Lecture 10 §5.1 — the medoid is the similarity-matrix equivalent of the
-        K-Means centroid).
-
-    Agglomerative mode — medoids is None:
-        Columns: Cluster, Country, Avg Sim in Cluster, Cluster Size
-        Used by Agglomerative Hierarchical Clustering (Lecture 10 §5.2), which has
-        NO medoid concept — it merges clusters based on inter-cluster similarity
-        and never designates a representative member. The 'Avg Sim in Cluster'
-        column shows each country's average similarity to the other members of
-        its cluster, which is a meaningful per-country quality indicator that
-        does not require inventing a medoid.
-    """
-    if medoids is not None:
-        # K-Means mode
-        rows = []
-        for i, cluster in enumerate(clusters):
-            medoid = medoids[i] if i < len(medoids) else ""
-            for country in sorted(cluster):
-                if country == medoid:
-                    sim = "1.0000"
-                elif matrix and medoid:
-                    sim = f"{matrix[country][medoid]:.4f}"
-                else:
-                    sim = ""
-                rows.append({
-                    "Cluster": i + 1,
-                    "Country": country,
-                    "Role": "medoid" if country == medoid else "",
-                    "Sim to Medoid": sim,
-                    "Cluster Size": len(cluster),
-                })
-        return pd.DataFrame(rows)
-
-    # Agglomerative mode — no medoids
     rows = []
     for i, cluster in enumerate(clusters):
+        medoid = medoid_map.get(i, "")
         for country in sorted(cluster):
-            if matrix:
-                avg_sim = f"{_avg_similarity_to_cluster(country, cluster, matrix):.4f}"
-            else:
-                avg_sim = ""
+            sim = ""
+            if matrix and medoid and country != medoid:
+                sim = f"{matrix[country][medoid]:.4f}"
+            elif country == medoid:
+                sim = "1.0000"
             rows.append({
                 "Cluster": i + 1,
                 "Country": country,
-                "Avg Sim in Cluster": avg_sim,
+                "Role": "medoid" if country == medoid else "",
+                "Sim to Medoid": sim,
                 "Cluster Size": len(cluster),
             })
     return pd.DataFrame(rows)
@@ -238,11 +206,7 @@ def _build_cluster_map(
     clusters: list[list[str]],
     title: str = "Cluster Map",
 ) -> go.Figure:
-    """Build a Plotly choropleth map color-coded by cluster assignment.
-
-    Uses CLUSTER_PALETTE indexed by cluster number so the same cluster
-    gets the same color in the map AND in the pie chart on the same tab.
-    """
+    """Build a Plotly choropleth map color-coded by cluster assignment."""
     rows = []
     for i, cluster in enumerate(clusters):
         for country in cluster:
@@ -259,21 +223,12 @@ def _build_cluster_map(
     if df.empty:
         return go.Figure()
 
-    # Explicit category-to-color map keyed by "Cluster N", matching the
-    # labels used in the pie chart. This guarantees a 1:1 color alignment
-    # across views, even if Plotly reorders categories internally.
-    cluster_color_map = {
-        f"Cluster {i + 1}": CLUSTER_PALETTE[i % len(CLUSTER_PALETTE)]
-        for i in range(len(clusters))
-    }
-
     fig = px.choropleth(
         df,
         locations="ISO",
         color="Cluster",
         hover_name="Country",
-        color_discrete_map=cluster_color_map,
-        category_orders={"Cluster": list(cluster_color_map.keys())},
+        color_discrete_sequence=px.colors.qualitative.Set2,
         title=title,
     )
     fig.update_layout(
@@ -416,28 +371,19 @@ with tab1:
         "Use the sample viewer to inspect any subset without loading the full heatmap."
     )
 
-    st.markdown("**Matrix actions:**")
-    col_btn_1, col_btn_2, col_spacer = st.columns([1.6, 1.6, 2])
-    with col_btn_1:
-        do_recompute = st.button(
-            "Recompute Matrix",
-            help=(
-                "Recompute all TED similarity pairs using the XML files already "
-                "on disk. Use this if you changed the preprocessor or TED code "
-                "but the underlying Wikipedia data is still fine. "
-                "Does NOT contact Wikipedia."
-            ),
-        )
-    with col_btn_2:
-        do_rescrape = st.button(
-            "Re-scrape + Recompute",
-            type="primary",
-            help=(
-                "Fetch fresh infoboxes from Wikipedia for every country, then "
-                "recompute the full similarity matrix. Use this when you want "
-                "current Wikipedia data. Takes several minutes."
-            ),
-        )
+    col_info, col_btn = st.columns([4, 1])
+    with col_btn:
+        if st.button("Build / Refresh Matrix", type="primary"):
+            with st.spinner(
+                "Computing similarity matrix for 193 countries. "
+                "this will take several minutes..."
+            ):
+                try:
+                    build_matrix(WORKING_SET, overwrite=True)
+                    st.success("Matrix built and cached successfully.")
+                    st.rerun()
+                except Exception as exc:
+                    st.error(f"Error building matrix: {exc}")
 
     if do_recompute:
         with st.spinner("Recomputing similarity matrix from cached XML files..."):

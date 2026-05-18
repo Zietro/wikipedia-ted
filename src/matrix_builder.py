@@ -76,12 +76,9 @@ def build_matrix(
             data = json.load(f)
         return data["matrix"]
 
-    # Step 1: optionally re-scrape infoboxes via Project 1
-    if rescrape:
-        print("[matrix_builder] Step 1: Scraping Wikipedia infoboxes via Project 1...")
-        collect_all(overwrite=overwrite)
-    else:
-        print("[matrix_builder] Step 1: Skipped (rescrape=False), using cached XML files.")
+    # Step 1: re-scrape infoboxes via Project 1
+    print("[matrix_builder] Step 1: Scraping Wikipedia infoboxes via Project 1...")
+    collect_all(overwrite=overwrite)
 
     # Step 2: load preprocessed trees
     print(f"\n[matrix_builder] Step 2: Loading trees for {len(countries)} countries...")
