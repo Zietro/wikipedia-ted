@@ -518,13 +518,24 @@ with tab1:
             "use this to inspect specific subsets."
         )
 
-        sample_size = st.slider(
-            "Sample size (countries)",
-            min_value=5,
-            max_value=min(50, n),
-            value=min(DEFAULT_SAMPLE_SIZE, n),
-            step=5,
-        )
+        max_sample = n # min(50, n)
+        min_sample = 1 # min(5, max_sample)
+
+        if min_sample >= max_sample:
+            sample_size = max_sample
+            st.caption(
+                f"Sample size: **{sample_size}** — matrix has only {n} "
+                f"{'country' if n == 1 else 'countries'}, so the full set is shown."
+            )
+        else:
+            step = 1
+            sample_size = st.slider(
+                "Sample size (countries)",
+                min_value=min_sample,
+                max_value=max_sample,
+                value=min(DEFAULT_SAMPLE_SIZE, max_sample),
+                step=step,
+            )
 
         selected_sample = st.multiselect(
             "Countries to include in sample (leave empty to use first N alphabetically)",
