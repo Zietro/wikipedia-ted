@@ -179,7 +179,7 @@ def _get_fields(country_name: str, fetch_missing: bool) -> dict[str, str] | None
         return local
     if not fetch_missing:
         return None
-    print(f"    [remote] {country_name} not cached locally — fetching...")
+    print(f"    [remote] {country_name} not cached locally, fetching...")
     time.sleep(BASE_DELAY_SECONDS)
     return _fetch_remote_fields(country_name)
 
@@ -232,7 +232,7 @@ def run_analysis(fetch_missing: bool = True) -> None:
     print(f"To fetch from Wikipedia: {remote_count}")
     if remote_count > 0 and fetch_missing:
         est = remote_count * BASE_DELAY_SECONDS
-        print(f"Estimated fetch time   : ~{est:.0f}s ({est/60:.1f} min) — may be longer with retries")
+        print(f"Estimated fetch time   : ~{est:.0f}s ({est/60:.1f} min) (may be longer with retries)")
     print()
 
     field_counts: dict[str, int] = defaultdict(int)
@@ -290,7 +290,7 @@ def run_analysis(fetch_missing: bool = True) -> None:
 
 def _print_summary(report: dict, success_count: int) -> None:
     print(f"\n{'='*62}")
-    print(f"FIELD ANALYSIS REPORT — {success_count} countries analyzed")
+    print(f"FIELD ANALYSIS REPORT: {success_count} countries analyzed")
     if report["failed"]:
         print(f"Failed ({len(report['failed'])}): {', '.join(report['failed'])}")
     print(f"{'='*62}\n")

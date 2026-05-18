@@ -1,5 +1,5 @@
 """
-matrix_builder.py — Pairwise Similarity Matrix Builder (Project 2)
+Pairwise Similarity Matrix Builder (Project 2)
 ====================================================================
 Builds, validates, caches, and loads the NxN similarity matrix for all
 UN member states scraped by Project 1.
@@ -36,7 +36,7 @@ MATRIX_PATH = os.path.join(
     os.path.dirname(__file__), "..", "data", "un_similarity_matrix_193.json"
 )
 
-# Single authoritative working set — sourced from Project 1's collector.
+# Single authoritative working set, sourced from Project 1 collector.
 # No duplication: if the country list ever changes, only collector.py changes.
 WORKING_SET: list[str] = UN_MEMBER_STATES
 
@@ -45,22 +45,30 @@ WORKING_SET: list[str] = UN_MEMBER_STATES
 # Build
 # ---------------------------------------------------------------------------
 
-def build_matrix(countries: list[str], overwrite: bool = False) -> dict:
+def build_matrix(
+    countries: list[str],
+    overwrite: bool = False,
+    rescrape: bool = True,
+) -> dict:
     """
     Build and cache the pairwise similarity matrix.
 
-    When overwrite=True:
-      - Calls collect_all() to re-scrape all country infoboxes first.
-      - Recomputes all similarity pairs regardless of any cached matrix.
-
-    When overwrite=False and a cached matrix exists, loads from disk.
-
     Args:
         countries: Canonical country names to include.
-        overwrite: Force re-scrape and recomputation.
+        overwrite: If True, recompute even when a cached matrix exists.
+                   If False and a cached matrix exists, load and return it.
+        rescrape:  If True, re-fetch infoboxes from Wikipedia before building.
+                   If False, use whatever XML files are already on disk.
+                   Only consulted when a build actually happens (i.e. when
+                   overwrite=True or no cached matrix exists).
 
     Returns:
         Nested dict: matrix[country_a][country_b] = similarity score.
+
+    Two common workflows:
+        build_matrix(WS, overwrite=True, rescrape=True)   # full refresh
+        build_matrix(WS, overwrite=True, rescrape=False)  # recompute only,
+                                                          # reuse cached XML
     """
     if not overwrite and os.path.exists(MATRIX_PATH):
         print(f"[matrix_builder] Loading cached matrix from {MATRIX_PATH}")
@@ -68,12 +76,15 @@ def build_matrix(countries: list[str], overwrite: bool = False) -> dict:
             data = json.load(f)
         return data["matrix"]
 
-    # Step 1: re-scrape infoboxes via Project 1
-    print("[matrix_builder] Step 1 — Scraping Wikipedia infoboxes via Project 1...")
-    collect_all(overwrite=overwrite)
+    # Step 1: optionally re-scrape infoboxes via Project 1
+    if rescrape:
+        print("[matrix_builder] Step 1: Scraping Wikipedia infoboxes via Project 1...")
+        collect_all(overwrite=overwrite)
+    else:
+        print("[matrix_builder] Step 1: Skipped (rescrape=False), using cached XML files.")
 
     # Step 2: load preprocessed trees
-    print(f"\n[matrix_builder] Step 2 — Loading trees for {len(countries)} countries...")
+    print(f"\n[matrix_builder] Step 2: Loading trees for {len(countries)} countries...")
     trees = {}
     skipped = []
     for country in countries:
@@ -89,7 +100,7 @@ def build_matrix(countries: list[str], overwrite: bool = False) -> dict:
     total_pairs = n * (n - 1) // 2
 
     # Step 3: compute all pairs
-    print(f"\n[matrix_builder] Step 3 — Computing {total_pairs} pairs for {n} countries...")
+    print(f"\n[matrix_builder] Step 3: Computing {total_pairs} pairs for {n} countries...")
 
     matrix = {c: {c: 1.0} for c in loaded}  # diagonal = 1.0
 
@@ -184,12 +195,12 @@ def validate_matrix(matrix: dict, countries: list[str]) -> None:
 # Load (read-only, no recompute)
 # ---------------------------------------------------------------------------
 
-def load_matrix() -> tuple[dict, list[str]]:
+def load_matrix() -> tuple[dict, list[str], list[str]]:
     """
     Load a previously built matrix from disk.
 
     Returns:
-        (matrix dict, list of country names in matrix order)
+        (matrix dict, list of country names in matrix order, list of skipped countries)
 
     Raises:
         FileNotFoundError if no cached matrix exists.
@@ -200,7 +211,7 @@ def load_matrix() -> tuple[dict, list[str]]:
         )
     with open(MATRIX_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
-    return data["matrix"], data["countries"]
+    return data["matrix"], data["countries"], data.get("skipped", [])
 
 
 # ---------------------------------------------------------------------------

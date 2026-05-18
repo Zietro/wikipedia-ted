@@ -107,7 +107,7 @@ def _rename_cost(n1: TreeNode, n2: TreeNode) -> float:
 
     # Structural nodes: N&J label-preserving constraint.
     # Only nodes with identical labels may be matched (cost 0).
-    # Different labels are blocked from matching — the algorithm is
+    # Different labels are blocked from matching. The algorithm is
     # forced to delete and insert instead. Returning 2 * INSERT_DELETE_COST
     # ensures the DP always prefers delete+insert over a structural rename.
     if n1.label == n2.label:

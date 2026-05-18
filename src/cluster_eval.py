@@ -1,8 +1,8 @@
 """
-cluster_eval.py — Internal Clustering Evaluation (Project 2)
-=============================================================
+Internal Clustering Evaluation (Project 2)
+
 Evaluates clustering quality using the Dunn Index, an internal measure
-that requires no external reference data (Lecture 10, §6).
+that requires no external reference data.
 
 The Dunn Index rewards:
   - High inter-cluster distance (clusters far apart)
@@ -10,7 +10,7 @@ The Dunn Index rewards:
 
 A higher Dunn Index indicates better clustering quality.
 
-Formula (Lecture 10):
+Formula:
     Dunn = min_inter_dist(Ci, Cj) / max_intra_diam(Ck)
 
 Where distances are derived from the similarity matrix as:
@@ -55,7 +55,7 @@ def _inter_cluster_distance(
 ) -> float:
     """
     Minimum inter-cluster distance between two clusters.
-    Uses the Single-Link (min) method — most conservative lower bound,
+    Uses the Single-Link (min) method, the most conservative lower bound,
     making the Dunn Index harder to inflate artificially.
     """
     return min(
